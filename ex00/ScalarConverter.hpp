@@ -5,6 +5,7 @@
 #include <limits.h>
 #include <cmath>
 
+
 class ScalarConverter
 {
 
