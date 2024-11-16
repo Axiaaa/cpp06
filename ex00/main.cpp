@@ -7,7 +7,5 @@ int main(int ac, char **av) {
     }
     ScalarConverter sc(av[1]);
     sc.convert();
-    return 0;
-    
-    
+    return 0;   
 }

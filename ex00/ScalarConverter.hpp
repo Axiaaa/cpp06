@@ -1,38 +1,73 @@
+#pragma once
 #include <iostream>
-#include <cstring>
-class ScalarConverter {
+#include <string>
+#include <iomanip>
+#include <limits.h>
+#include <cmath>
+
+class ScalarConverter
+{
+
     public:
-        ScalarConverter(const char *input);
-        ~ScalarConverter();
-        ScalarConverter(const ScalarConverter &src);
-        ScalarConverter &operator=(const ScalarConverter &src);
-        void    convert();
-        int     toInt();
-        float   toFloat();
-        double  toDouble();
-        char    toChar();
+    ScalarConverter();
+    ScalarConverter(std::string str);
+    ScalarConverter(ScalarConverter const & src);
+    ~ScalarConverter();
+    ScalarConverter & operator=(ScalarConverter const & rhs);
+
+    void convert();
+    void printChar();
+    void printInt();
+    void printFloat();
+    void printDouble();
+
     private:
-        ScalarConverter();
-        const char *_input;
+    std::string _str;
 
-    class ImpossibleConversion : public std::exception {
+
+    class ImpossibleException : public std::exception
+    {
         public:
-            virtual const char *what() const throw() {
-                return "impossible";
-            }
+        virtual const char* what() const throw()
+        {
+            return "impossible";
+        }
     };
 
-    class NonDisplayable : public std::exception {
+    class NonDisplayableException : public std::exception
+    {
         public:
-            virtual const char *what() const throw() {
-                return "Non displayable";
-            }
+        virtual const char* what() const throw()
+        {
+            return "Non displayable";
+        }
     };
 
-    class InvalidInput : public std::exception {
+    class ConversionException : public std::exception
+    {
         public:
-            virtual const char *what() const throw() {
-                return "Invalid input";
-            }
+        virtual const char* what() const throw()
+        {
+            return "Conversion failed";
+        }
     };
+
+    class OverflowException : public std::exception
+    {
+        public:
+        virtual const char* what() const throw()
+        {
+            return "Overflow";
+        }
+    };
+
+    class NanfException : public std::exception
+    {
+        public:
+        virtual const char* what() const throw()
+        {
+            return "nanf";
+        }
+    };
+
 };
