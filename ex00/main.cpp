@@ -5,7 +5,6 @@ int main(int ac, char **av) {
         std::cout << "Error: Invalid number of arguments" << std::endl;
         return 1;
     }
-    ScalarConverter sc(av[1]);
-    sc.convert();
+    ScalarConverter::convert(av[1]);
     return 0;   
 }

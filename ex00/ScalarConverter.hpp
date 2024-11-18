@@ -3,27 +3,27 @@
 #include <string>
 #include <iomanip>
 #include <limits.h>
+#include <string>
 #include <cmath>
 
+using std::string;
 
 class ScalarConverter
 {
 
     public:
-    ScalarConverter();
-    ScalarConverter(std::string str);
-    ScalarConverter(ScalarConverter const & src);
-    ~ScalarConverter();
-    ScalarConverter & operator=(ScalarConverter const & rhs);
 
-    void convert();
-    void printChar();
-    void printInt();
-    void printFloat();
-    void printDouble();
+    static void convert(const std::string &str);
 
     private:
-    std::string _str;
+    ~ScalarConverter();
+    ScalarConverter &operator=(const ScalarConverter &src);
+    ScalarConverter(const ScalarConverter &src);
+    ScalarConverter();
+    static void printChar(const std::string &str);
+    static void printInt(const std::string &str);
+    static void printFloat(const std::string &str);
+    static void printDouble(const std::string &str);
 
 
     class ImpossibleException : public std::exception

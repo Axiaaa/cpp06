@@ -5,53 +5,46 @@ double	ft_atof(const char *str);
 
 ScalarConverter::ScalarConverter() {}
 
-ScalarConverter::ScalarConverter(std::string str) : _str(str) {}
-
-ScalarConverter::ScalarConverter(ScalarConverter const & src) : _str(src._str) {}
+ScalarConverter::ScalarConverter(ScalarConverter const & src) { (void)src; }
 
 ScalarConverter::~ScalarConverter() {}
 
-ScalarConverter & ScalarConverter::operator=(ScalarConverter const & rhs)
-{
-    if (this != &rhs)
-        _str = rhs._str;
-    return *this;
-}
+ScalarConverter & ScalarConverter::operator=(ScalarConverter const & rhs) { (void)rhs; return *this; }
 
-void ScalarConverter::convert()
+void ScalarConverter::convert(const string& str)
 {
-    if (_str == "nan" || _str == "nanf" || _str == "+inf" || _str == "+inff" || _str == "-inf" || _str == "-inff")
+    if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff" || str == "-inf" || str == "-inff" || str == "inf")
         std::cout << "char: impossible" << std::endl;
     else 
-        printChar();
-    printInt();
-    if (_str == "nan" || _str == "nanf" || _str == "+inf" || _str == "+inff" || _str == "-inf" || _str == "-inff") {
-        if (_str == "nan" || _str == "nanf")
+        printChar(str);
+    printInt(str);
+    if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff" || str == "-inf" || str == "-inff" || str == "inf") {
+        if (str == "nan" || str == "nanf")
             std::cout << "float: nanf" << std::endl;
         else
-            std::cout << "float: " << _str << std::endl;
+            std::cout << "float: " << str << std::endl;
     }
     else
-        printFloat();
-    if (_str == "nan" || _str == "nanf" || _str == "+inf" || _str == "+inff" || _str == "-inf" || _str == "-inff") {
-        if (_str == "nan" || _str == "nanf")
+        printFloat(str);
+    if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff" || str == "-inf" || str == "-inff" || str == "inf") {
+        if (str == "nan" || str == "nanf")
             std::cout << "double: nan" << std::endl;
         else
-            std::cout << "double: " << _str << std::endl;
+            std::cout << "double: " << str << std::endl;
     }
     else
-        printDouble();
+        printDouble(str);
 }
 
-void ScalarConverter::printChar()
+void ScalarConverter::printChar(const string& str)
 {
     std::cout << "char: ";
     try
     {
-        int i = strtol(_str.c_str(), NULL, 10);
+        int i = strtol(str.c_str(), NULL, 10);
         if (i < 0 || i > 255)
             throw OverflowException();
-        if (std::isprint(i))
+        if (isprint(i))
             std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
         else
             throw NonDisplayableException();
@@ -63,16 +56,16 @@ void ScalarConverter::printChar()
 }
 
 
-void ScalarConverter::printInt()
+void ScalarConverter::printInt(const string& str)
 {
     std::cout << "int: ";
     try
     {
 
-        long i = strtol(_str.c_str(), NULL, 10);
+        long i = strtol(str.c_str(), NULL, 10);
         if (i < INT_MIN || i > INT_MAX)
             throw OverflowException();
-        if (i == 0 && _str != "0")
+        if (i == 0 && str != "0")
             throw ConversionException();
         std::cout << i << std::endl;
     }
@@ -82,12 +75,12 @@ void ScalarConverter::printInt()
     }
 }
 
-void ScalarConverter::printFloat()
+void ScalarConverter::printFloat(const string& str)
 {
     std::cout << "float: ";
     try
     {
-        double f = ft_atof(_str.c_str());
+        double f = ft_atof(str.c_str());
         if (std::isinf(f) || std::isnan(f))
             throw NanfException();
         if (static_cast<int>(f) == f)
@@ -102,12 +95,12 @@ void ScalarConverter::printFloat()
     }
 }
 
-void ScalarConverter::printDouble()
+void ScalarConverter::printDouble(const std::string &str)
 {
     std::cout << "double: ";
     try
     {
-        double d = ft_atof(_str.c_str());
+        double d = ft_atof(str.c_str());
         if (std::isinf(d) || std::isnan(d))
             throw NanfException();
         if (static_cast<int>(d) == d)

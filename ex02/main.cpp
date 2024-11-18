@@ -50,13 +50,12 @@ void identify(Base& p) {
     }
 }
 
-
-
 int main() {
     Base *base = generate();
     identify(base);
     identify(*base);
     Base *a= NULL;
     identify(*a);
+    delete base;
     return 0;
 }
