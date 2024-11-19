@@ -41,7 +41,12 @@ void ScalarConverter::printChar(const string& str)
     std::cout << "char: ";
     try
     {
-        int i = strtol(str.c_str(), NULL, 10);
+        if (str.length() == 1 && !std::isdigit(str[0]))
+        {
+            std::cout << "'" << str[0] << "'" << std::endl;
+            return;
+        }
+        long i = strtol(str.c_str(), NULL, 10);
         if (i < 0 || i > 255)
             throw OverflowException();
         if (isprint(i))
@@ -61,7 +66,11 @@ void ScalarConverter::printInt(const string& str)
     std::cout << "int: ";
     try
     {
-
+        if (str.length() == 1 && !std::isdigit(str[0]))
+        {
+            std::cout << static_cast<int>(str[0]) << std::endl;
+            return;
+        }
         long i = strtol(str.c_str(), NULL, 10);
         if (i < INT_MIN || i > INT_MAX)
             throw OverflowException();
@@ -80,6 +89,11 @@ void ScalarConverter::printFloat(const string& str)
     std::cout << "float: ";
     try
     {
+        if (str.length() == 1 && !std::isdigit(str[0]))
+        {
+            std::cout << static_cast<int>(str[0]) << ".f" << std::endl;
+            return;
+        }
         double f = ft_atof(str.c_str());
         if (std::isinf(f) || std::isnan(f))
             throw NanfException();
@@ -99,7 +113,12 @@ void ScalarConverter::printDouble(const std::string &str)
 {
     std::cout << "double: ";
     try
-    {
+    {  
+        if (str.length() == 1 && !std::isdigit(str[0]))
+        {
+            std::cout << static_cast<double>(str[0]) << ".0"<< std::endl;
+            return;
+        }
         double d = ft_atof(str.c_str());
         if (std::isinf(d) || std::isnan(d))
             throw NanfException();
